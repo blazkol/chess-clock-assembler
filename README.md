@@ -1,11 +1,7 @@
-# chess-clock
-School project written in assembly language
+# chess-clock-assembler
+Embedded project written in the assembly language.
 
-# Development environment and hardware used in project
-- Keil uVision
-- Intel 8051 Microcontroller
-
-# Detailed description
+## Description
 The program displays the chess clock on the LCD display in the following way:
 
 FP--:--L--:--M--
@@ -14,14 +10,19 @@ SP--:--L--:--M--
 
 where:
 
-FP - first player time left,
+FP - first player time left
 
-SP - second player time left,
+SP - second player time left
 
-L - time of last / current move,
+L - time of last / current move
 
-M - the number of performed moves,
+M - the number of performed moves
 
+## Built with
+* Intel 8051 (MCS-51)
+* 16x2 HD44780 LCD display
+
+## Internal specification
 At the beginning of the “MAIN” procedure, we assign initial values to variables used for displaying time and number of moves for each player and to register R0 (this register indicates whether the game was started or not). Then we call procedures responsible for initializing LCD display and counter T0 and printing chess  clock. After that, we go to the “LOOP” procedure which checks the state of the R0 register at the very beginning. We will not go any further until the state on the R0 is 1 (this can be achieved by pressing the appropriate button responsible for starting the game). Then we check whether the variable CL_100 is equal to 0, and if it is not, we return to the beginning of the procedure (we do this because whenever CL_100 is equal to 0 it means that one second has passed and there is no need to print something on display more frequently than every one second in our case). Lines 56 and 57 are responsible for clearing the display. Next lines of the procedure respectively: print the chess clock, check that the first and second players have not run out of time (if so, the program is stopped by setting the value of the R0 register to 0) and finally loop to the beginning of this procedure.
 
 In the “LCD CONTROL” section of code are placed various procedures used for controlling the LCD display.
